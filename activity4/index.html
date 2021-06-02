@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>MQTT Activity 4</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!--Container for the header part-->
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div style="font-size:30px; box-shadow:rgba(0, 0,0, 1)0px 3px 20px;" class="mx-auto w-50 p-3 bg-light text-dark text-center">
+                    <span>MQTT ACTIVITY 4</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="container">
+            <div class="row">
+                <center>
+                    <div class="col-sm-12 w-50">
+                        <div class="card-mb-4 bg-light" style="box-shadow:rgba(0, 0, 0, 1)0px 3px 20px;">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="card-title text-dark">
+                                        <h3 class="center">Address</h3>
+                                        <input type="text" class="form-control" value="wss://mqtt.eclipseprojects.io:443/mqtt" aria-label="Topic">
+                                    </div>
+                                    <button id="connect" class="btn btn-outline-primary btn-sm mt-2">Connect </button>
+                                    <button id="disconnect" class="btn btn-outline-danger btn-sm ml-2 mt-2">Disconnect</button>
+                                    <hr>
+                                    <h4>Status:</h4>
+                                    <input type="text" id="status" class="form-control" placeholder="Select Connect" value="" aria-label="Payload" readonly>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card-mb-4 bg-light" style="box-shadow: rgba(0, 0,0, 1) 0px 3px 20px;">
+                        <div class="col-sm-12">
+                            <div class="card-body">
+                                <div class="card-title text-dark">
+                                    <h5 class="center text-center">Publish</h5>
+                                    <hr>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            Topic:
+                                            <input type="text" class="form-control" id="topic" placeholder="Topic" aria-label="Topic">
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            Payload:
+                                            <input type="text" class="form-control" id="payload" placeholder="Payload" aria-label="Payload">
+                                        </div>
+                                    </div>
+                                    <div class="input-group mt-4">
+                                        <button id="published" class="btn btn-outline-primary">Publish</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card-mb-4 bg-light" style="box-shadow: rgba(0, 0, 0, 1) 0px 3px 20px;">
+                        <div class="col-sm-12">
+                            <div class="card-body">
+                                <div class="card-title text-dark">
+                                    <h5 class="center text-center">Subscribe</h5>
+                                    <hr>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            Topic:
+                                            <input type="text" class="form-control" id="subtopic" placeholder="Topic" aria-label="Topic">
+                                        </div>
+                                    </div>
+                                    <button id="subscribe" class="btn btn-outline-primary btn-sm">Subscribe</button>
+                                    <button id="unsubscribe" class="btn btn-outline-danger btn-sm">Unsubscribe</button>
+                                    <br><br><br><br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container" style="box-shadow: rgba(0, 0,0, 1) 0px 3px 20px;">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="mes text-center">Messages</h2>
+                        <h3 class="arrow text-center"> ⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣⇣</h3>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card-mb-3" style="box-shadow:rgba(0, 0,0, 1)0px 3px 20px;">
+                        <div class="col-md-12">
+                            <div class="card-body" id="table1">
+                                <div class="card-title text-dark">
+                                    <h5 class="center text-center">Incoming Message</h5>
+                                    <hr>
+                                    <table class="table table-hover table-dark text-light" id="tableMessages">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Topic</th>
+                                                <th scope="col">Payload</th>
+                                                <th scope="col">Time Stamp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card-mb-3" style="box-shadow: rgba(0, 0,0, 1) 0px 3px 20px;">
+                        <div class="col-md-12">
+                            <div class="card-body" id="table2">
+                                <div class="card-title text-dark">
+                                    <h5 class="center text-center">Published Messages</h5>
+                                    <hr>
+                                    <table class="table table-hover table-dark text-light" id="tablePub">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Topic</th>
+                                                <th scope="col">Payload</th>
+                                                <th scope="col">Time Stamp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card-mb-3" style="box-shadow: rgba(0, 0,0, 1) 0px 3px 20px;">
+                        <div class="col-md-12">
+                            <div class="card-body" id="table3">
+                                <div class="card-title text-dark">
+                                    <h5 class="center text-center">Subscribed Messages</h5>
+                                    <hr>
+                                    <table class="table table-hover table-dark text-light" id="tableSub">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Topic</th>
+                                                <th scope="col">Time Stamp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </div>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="browserMqtt.js"></script>
+    <script src="index.js"></script>
+
+
+    <footer class="footer bg-dark">
+        <div class="footer-copyright text-center text-light py-3">Copyright © 2021 Dave Lyndrex Millan. All rights reserved. &nbsp;
+            <a href="https://www.passerellesnumeriques.org/en/our-actions/philippines/"> Passerelles Numeriques</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
